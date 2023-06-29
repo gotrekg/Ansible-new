@@ -1,0 +1,25 @@
+ansible-galaxy install arillso.sshd
+---
+- hosts: all
+  become: true
+  roles:
+    - arillso.sshd
+##########################################################################################	
+	- hosts: all
+  become: True
+  roles:
+    - oefenweb.ufw
+  vars:
+    ufw_rules:
+      - rule: allow
+        to_port: 22
+        protocol: tcp
+        comment: 'allow incoming connection on standard ssh port'
+	  - rule: allow
+        to_port: 80
+        protocol:
+        comment: 'allow http'
+      - rule: allow 
+        to_port: 443
+        comment: 'allow https'
+      

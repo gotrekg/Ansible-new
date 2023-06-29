@@ -1,0 +1,87 @@
+- name: Create a new Linux user
+  hosts: all
+  vars:
+    user_name: "{{ user_name }}"
+    user_password: "{{ user_password }}"
+    ssh_public_key: "{{ ssh_public_key }}"
+  tasks:
+    - name: Create the user
+      user:
+        name: "{{ user_name }}"
+        password: "{{ user_password | password_hash('sha512') }}"
+        state: present
+    - name: Add the SSH public key
+      authorized_key:
+        user: "{{ user_name }}"
+        key: "{{ ssh_public_key }}"
+You can use the -e flag when running the playbook to specify the values for the input variables. For example:
+
+Copy code
+ansible-playbook -e "user_name=myuser user_password=mypassword ssh_public_key='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD..." playbook.yml
+You can also pass variables in a separate yml file.
+
+Copy code
+ansible-playbook -e "@vars.yml" playbook.yml
+Where vars.yml file contains the variables in a key-value format
+
+Copy code
+user_name: myuser
+user_password: mypassword
+ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD...
+Note that in the example above, the user's password is hashed using the password_hash filter, which is provided by Ansible. This is a best practice for storing passwords in playbooks.
+
+
+
+---
+- hosts: all
+  become: true
+  vars:
+    created_username: test_masarik
+
+  tasks:
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+
+    - name: Setup passwordless sudo
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+        validate: '/usr/sbin/visudo -cf %s'
+
+    - name: Create a new regular user with sudo privileges
+      user:
+        name: "{{ created_username }}"
+        state: present
+        groups: sudo
+        append: true
+        create_home: true
+
+    - name: Set authorized key for remote user
+      ansible.posix.authorized_key:
+        user: "{{ created_username }}"
+        state: present
+        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+
+    - name: Disable password authentication for root
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin prohibit-password'
+
+    - name: Update apt and install required system packages
+      apt:
+        pkg:
+          - curl
+          - vim
+          - git
+          - ufw
+        state: latest
+        update_cache: true
+
+    

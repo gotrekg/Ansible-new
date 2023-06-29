@@ -1,0 +1,10 @@
+ersion: "3"
+services:
+  watchtower:
+    image: containrrr/watchtower
+    environment:
+      TZ: Europe/Prague
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_DEBUG: "true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

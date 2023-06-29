@@ -1,0 +1,4 @@
+user_name: myuser
+user_password: mypassword
+ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD...
+ssh_port: 22

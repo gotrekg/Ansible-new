@@ -1,0 +1,63 @@
+22/tcp                     LIMIT IN    Anywhere
+137,138/udp (Samba)        ALLOW IN    Anywhere
+139,445/tcp (Samba)        ALLOW IN    Anywhere
+51337/udp                  ALLOW IN    Anywhere
+8600                       ALLOW IN    Anywhere
+6800                       ALLOW IN    192.168.40.0/29
+8600                       ALLOW IN    192.168.40.0/29
+8080                       ALLOW IN    10.0.0.0/8
+8080                       ALLOW IN    172.16.0.0/12
+8080                       ALLOW IN    192.168.0.0/16
+8081                       ALLOW IN    10.0.0.0/8
+8081                       ALLOW IN    172.16.0.0/12
+8081                       ALLOW IN    192.168.0.0/16
+53                         ALLOW IN    10.0.0.0/8
+53                         ALLOW IN    172.16.0.0/12
+53                         ALLOW IN    192.168.0.0/16
+8000                       ALLOW IN    10.0.0.0/8
+8000                       ALLOW IN    172.16.0.0/12
+8000                       ALLOW IN    192.168.0.0/16
+3000/tcp                   ALLOW IN    192.168.40.2
+5001                       ALLOW IN    Anywhere
+8888                       ALLOW IN    10.0.0.0/8
+8888                       ALLOW IN    172.16.0.0/12
+8888                       ALLOW IN    192.168.0.0/16
+80,443/tcp (Nginx Full)    ALLOW IN    Anywhere
+9000                       ALLOW IN    192.168.0.0/16
+9000                       ALLOW IN    172.16.0.0/12
+9000                       ALLOW IN    10.0.0.0/8
+81                         ALLOW IN    192.168.0.0/16
+81                         ALLOW IN    172.16.0.0/12
+81                         ALLOW IN    10.0.0.0/8
+8020                       ALLOW IN    192.168.0.0/16
+8020                       ALLOW IN    172.16.0.0/12
+8020                       ALLOW IN    10.0.0.0/8
+9999                       ALLOW IN    192.168.0.0/16
+9999                       ALLOW IN    172.16.0.0/12
+9999                       ALLOW IN    10.0.0.0/8
+22222                      ALLOW IN    Anywhere
+9987                       ALLOW IN    Anywhere
+10011                      ALLOW IN    Anywhere
+30033                      ALLOW IN    Anywhere
+32400/tcp (plexmediaserver-all) ALLOW IN    Anywhere
+3005/tcp (plexmediaserver-all) ALLOW IN    Anywhere
+5353/udp (plexmediaserver-all) ALLOW IN    Anywhere
+8324/tcp (plexmediaserver-all) ALLOW IN    Anywhere
+32410:32414/udp (plexmediaserver-all) ALLOW IN    Anywhere
+1900/udp (plexmediaserver-all) ALLOW IN    Anywhere
+32469/tcp (plexmediaserver-all) ALLOW IN    Anywhere
+6080                       ALLOW IN    Anywhere
+6901                       ALLOW IN    Anywhere
+6969                       ALLOW IN    Anywhere
+9091                       ALLOW IN    Anywhere
+80/tcp                     ALLOW IN    Anywhere
+443                        ALLOW IN    Anywhere
+8920                       ALLOW IN    Anywhere
+1900                       ALLOW IN    Anywhere
+7359                       ALLOW IN    Anywhere
+8096                       ALLOW IN    Anywhere
+32400                      ALLOW IN    Anywhere
+
+
+
+

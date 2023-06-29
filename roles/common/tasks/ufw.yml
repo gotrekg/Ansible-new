@@ -1,0 +1,139 @@
+ ---
+- hosts: all
+  become: yes
+  tasks:
+     - name: Install ufw
+       package:
+       name: ufw
+       state: present
+
+    - name: Ensure ufw is enabled
+      service:
+      name: ufw
+      state: started
+      enabled: yes
+
+    - name: Allow qBittorrent ports
+      ufw:
+      rule: allow
+      port: ["8080/tcp", "6881/tcp", "6881/udp"]
+      proto: [tcp, udp]
+
+    - name: Allow Docker Portainer port
+      ufw:
+      rule: allow
+      port: "9000/tcp"
+      proto: tcp
+    - name: Disable UFW IPV6
+       ansible.builtin.lineinfile:
+        path: /etc/default/ufw
+        regexp: '^IPV6='
+        line: IPV6=no
+    - name: enable ufw service
+      ufw:
+        state: enabled
+    - name: reload ufw
+      ufw:
+        state: reloaded
+    - name: ufw deny incoming
+      ufw:
+        direction: incoming
+        proto: any
+        policy: deny
+    - name: ufw allow outgoing
+      ufw:
+        direction: outgoing
+        proto: any
+        policy: allow
+    - name: ufw allow ssh
+      ufw:
+        rule: allow
+        name: OpenSSH
+    - name: ufw allow samba
+      ufw:
+        rule: allow
+        name: samba
+    - name: ufw allow http
+      ufw:
+        rule: allow
+        port: '80'
+        proto: tcp
+    - name: ufw allow https
+      ufw:
+        rule: allow
+        port: '443'
+        proto: tcp
+    - name: Set logging
+     ufw:
+       logging: 'True'
+    - name: SSH limit
+     ufw:
+       rule: limit
+       port: ssh
+       proto: tcp
+    - name: Allow qBittorrent ports
+     ufw:
+      rule: allow
+      port: ["8080/tcp", "6881/tcp", "6881/udp"]
+      proto: [tcp, udp]
+    - name: Allow aria2-ng port 8600 in ufw
+      ufw:
+      rule: allow
+      port: "8600/tcp"
+      proto: tcp
+    - name: Allow aria2-ng port 6800 in ufw
+      ufw:
+      rule: allow
+      port: "6800/tcp"
+      proto: tcp           
+    - name: Allow Nginx Proxy Manager port 81 in ufw
+      ufw:
+       rule: allow
+       port: "81/tcp"
+       proto: tcp
+    - name: Allow WireGuard ports 51337 and 51821 in ufw
+       ufw:
+       rule: allow
+       port: ["51337/udp", "51821/udp"]
+       proto: udp   
+    - name: Allow WordPress port 8020 in ufw
+       ufw:
+       rule: allow
+       port: "8020/tcp"
+       proto: tcp 
+    - name: Allow 8081 in ufw
+       ufw:
+       rule: allow
+       port: "8081/tcp"
+       proto: tcp
+    - name: Allow DNS in ufw
+       ufw:
+       rule: allow
+       port: ["53/tcp", "53/udp"]
+       proto: tcp
+    - name: Allow 8000 cloud in ufw
+       ufw:
+       rule: allow
+       port: "8000/tcp"
+       proto: tcp
+    - name: Allow port 3000 in ufw
+       ufw:
+       rule: allow
+       port: "8000/tcp"
+       proto: tcp      
+    - name: Allow port 5001 in ufw
+       ufw:
+       rule: allow
+       port: "5001/tcp"
+       proto: tcp  
+    - name: Allow port 8888 in ufw
+       ufw:
+       rule: allow
+       port: "8888/tcp"
+       proto: tcp
+    - name: Allow authelia in ufw
+       ufw:
+       rule: allow
+       port: "9091/tcp"
+       proto: tcp      
+   

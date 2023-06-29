@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  ariang:
+    image: hurlenko/aria2-ariang
+    ports:
+      - 8600:8080
+    volumes:
+      - /DOWNLOAD_DIR:/aria2/data  ### EDIT
+      - /CONFIG_DIR:/aria2/conf    ### EDIT
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - RPC_SECRET=Adamovanoha22
+      - ARIA2RPCPORT=8600
+    restart: always

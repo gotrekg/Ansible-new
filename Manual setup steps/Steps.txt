@@ -1,0 +1,65 @@
+nfsdckr w$PiM!QkiIhbeDs9VR@b72
+docker masarik Q3r95xPBOim$XzHvBJTHf&
+
+
+#######################################################
+https://www.youtube.com/watch?v=uR1_hlHxvhc
+
+#####################################################
+mkdir -p /boot/efi/EFI/BOOT
+cp /boot/efi/EFI/debian/grubx64.efi /boot/efi/EFI/BOOT/bootx64.efi
+
+nano /etc/ssh/sshd_config
+edit PermitRootLogin yes
+service sshd restart
+
+install sudo
+usermod -aG sudo masarik
+sudo visudo
+masarik ALL=(ALL) NOPASSWD:ALL
+
+crontab -e
+@reboot cp /boot/efi/EFI/debian/grubx64.efi /boot/efi/EFI/BOOT/bootx64.efi
+
+apt install nfs-common
+mkdir /nfs
+nano /etc/fstab
+10.11.12.172:/mnt/raid5/nfs/nfsdckr /nfs   nfs  rw,async,noatime,hard   0    0
+
+
+
+systemctl enable systemd-networkd-wait-online.service
+---
+- name: network wait enable and started
+  hosts: all
+  become: true
+  tasks:
+    - name: network bla delay bla
+      ansible.builtin.systemd:
+        name: systemd-networkd-wait-online
+        enabled: true
+    - name: network bla delay bla
+      ansible.builtin.systemd:
+        state: started
+        name: systemd-networkd-wait-online
+
+
+
+ssh-keygen -t ed25519 -C "rpi3"
+ssh-copy-id -i path ip server 
+ssh-copy-id -i /home/masarik/.ssh/new_debian_2 masarik@10.11.12.194
+
+## WINDOWS
+type $env:USERPROFILE\.ssh\deb_new_win.pub | ssh masarik@10.11.12.194 "cat >> .ssh/authorized_keys"
+#
+
+ansible-galaxy install arillso.sshd
+ansible-galaxy install oefenweb.ufw
+ansible-galaxy collection install community.general
+
+
+install docker+docker compose 
+
+
+
+

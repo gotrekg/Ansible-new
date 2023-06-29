@@ -1,0 +1,107 @@
+- hosts: all
+  become: True
+  roles:
+    - oefenweb.ufw
+  vars:
+    ufw_rules:
+      - rule: allow
+        to_port: 22
+        protocol: tcp
+        comment: 'allow incoming connection on standard ssh port'
+      - rule: allow
+        to_port: 80
+        protocol: tcp
+        comment: 'allow http'
+      - rule: allow
+        to_port: 443
+        protocol: tcp
+        comment: 'allow https'
+  roles:
+    - ypsman.ipv6_disable
+  tasks:
+    - name: Set logging
+      community.general.ufw:
+        logging: 'on'
+    - name: Allow all access to tcp port 8080
+      community.general.ufw:
+        rule: allow
+        port: '8080'
+        proto: tcp
+    - name: Allow all access to tcp port 6881
+      community.general.ufw:
+        rule: allow
+        port: '6881'
+        proto: tcp
+    - name: Allow all access to tcp port 6881
+      community.general.ufw:
+        rule: allow
+        port: '6881'
+        proto: udp
+    - name: Allow all access to tcp port 9000
+      community.general.ufw:
+        rule: allow
+        port: '9000'
+        proto: tcp
+    - name: Allow qBittorrent port 6881
+      community.general.ufw:
+        rule: allow
+        port: '6881'
+        proto: tcp
+    - name: Allow qBittorrent port 6881
+      community.general.ufw:
+        rule: allow
+        port: '6881'
+        proto: udp
+    - name: Allow aria2-ng port 8600 in ufw
+      community.general.ufw:
+        rule: allow
+        port: '8600'
+        proto: tcp
+    - name: Allow aria2-ng port 6800 in ufw
+      community.general.ufw:
+        rule: allow
+        port: '6800'
+        proto: tcp
+    - name: Allow Nginx Proxy Manager port 81 in ufw
+      community.general.ufw:
+        rule: allow
+        port: '81'
+        proto: tcp
+    - name: Allow WireGuard ports 51337 in ufw
+      community.general.ufw:
+        rule: allow
+        port: '51337'
+        proto: udp
+    - name: Allow WordPress port 8020 in ufw
+      community.general.ufw:
+        rule: allow
+        port: '8020'
+        proto: tcp
+    - name: Allow DNS port 53 tcp
+      community.general.ufw:
+        rule: allow
+        port: '53'
+        proto: tcp
+    - name: Allow DNS port 53 udp
+      community.general.ufw:
+        rule: allow
+        port: '53'
+        proto: udp
+    - name: Allow authelia 9191 in ufw
+      community.general.ufw:
+        rule: allow
+        port: '9091'
+        proto: tcp
+    - name: Allow kasmVNC in ufw
+      community.general.ufw:
+        rule: allow
+        port: '6969'
+        proto: tcp
+    - name: Disable UFW IPV6
+      lineinfile:
+        path: /etc/default/ufw
+        regexp: '^IPV6=yes'
+        line: IPV6=no
+    - name: reload ufw
+      community.general.ufw:
+        state: reloaded
